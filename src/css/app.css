@@ -1116,6 +1116,48 @@ body.embed #canvasContainer {
     .thrust-buttons {
         grid-template-columns: 1fr;
     }
+    
+    /* Fix direction slider for mobile */
+    .direction-control {
+        padding: 20px 15px;
+        margin-top: 15px;
+    }
+    
+    .direction-slider-container .slider-labels {
+        font-size: 1rem;
+        margin-bottom: 12px;
+    }
+    
+    .direction-slider-container .slider-labels span:nth-child(2) {
+        font-size: 1.1rem;
+    }
+    
+    /* Make slider thumb smaller on mobile for easier use */
+    .direction-slider-container input[type="range"]::-webkit-slider-thumb {
+        width: 60px;
+        height: 60px;
+        border: 4px solid white;
+    }
+    
+    .direction-slider-container input[type="range"]::-moz-range-thumb {
+        width: 60px;
+        height: 60px;
+        border: 4px solid white;
+    }
+    
+    .direction-slider-container input[type="range"] {
+        height: 30px;
+        border: 2px solid var(--border);
+    }
+    
+    .direction-slider-container .slider-value {
+        font-size: 1.2rem;
+        margin-top: 15px;
+    }
+    
+    .direction-slider-container .slider-value .force-number {
+        font-size: 1.2rem;
+    }
 }
 
 /* ========================================

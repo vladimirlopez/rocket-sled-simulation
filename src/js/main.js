@@ -248,6 +248,7 @@ function loadScenario(scenario) {
     // First reset everything
     resetPhysics();
     if (directionSlider) directionSlider.value = 0;
+    updateForceFromSlider(0); // Ensure force is reset
 
     // Configure based on scenario
     switch (scenario) {
@@ -312,6 +313,7 @@ function loadScenario(scenario) {
 
     updateLegend();
     updateDisplays();
+    console.log('Scenario loaded:', scenario, 'Friction:', physicsState.frictionEnabled, 'Air Drag:', physicsState.airDragEnabled);
 }
 
 /**
