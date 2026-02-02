@@ -66,9 +66,6 @@ function windowResized() {
     canvasWidth = container.clientWidth;
     canvasHeight = container.clientHeight;
     resizeCanvas(canvasWidth, canvasHeight);
-
-    // Initialize snow particles
-    initSnow();
 }
 
 // p5.js main draw loop
@@ -430,12 +427,7 @@ function drawPenguin(x, y, facing) {
 
 
 
-/**
- * Initialize snow system (no longer needed for static ground snow)
- */
-function initSnow() {
-    // Static snow is drawn directly, no initialization needed
-}
+// Note: initSnow() function removed - static snow is drawn directly without initialization
 
 /**
  * Draw snow on the ground only (no falling animation)
@@ -449,17 +441,18 @@ function drawSnow(velocity) {
     fill(255, 255, 255, 200);
     
     // Static snow layer on the ground
+    // Using pseudo-random offsets based on x position for natural distribution
     for (let x = 0; x < canvasWidth; x += 15) {
-        const offset = (x * 123) % 10 - 5; // Pseudo-random offset for natural look
-        const size = 3 + ((x * 79) % 3);
+        const offset = (x * 123) % 10 - 5; // Pseudo-random horizontal offset (-5 to 5)
+        const size = 3 + ((x * 79) % 3);   // Pseudo-random size variation (3 to 6)
         ellipse(x + offset, groundY + 5, size, size);
     }
     
     // Add some snow patches for texture
     fill(255, 255, 255, 150);
     for (let x = 0; x < canvasWidth; x += 25) {
-        const offset = (x * 97) % 12 - 6;
-        const size = 4 + ((x * 53) % 4);
+        const offset = (x * 97) % 12 - 6;  // Pseudo-random horizontal offset (-6 to 6)
+        const size = 4 + ((x * 53) % 4);   // Pseudo-random size variation (4 to 8)
         ellipse(x + offset, groundY + 10, size, size);
     }
 }
