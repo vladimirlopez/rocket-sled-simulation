@@ -17,9 +17,8 @@ let showGrid = false;
 // Jet animation
 let jetFlameOffset = 0;
 
-// Snow system configuration
-const SNOW_COUNT = 100;
-const snowParticles = [];
+// Snow system configuration (now just static ground snow)
+// No longer need falling snow particles
 
 // Parallax background scrolling
 let bgOffset = 0; // Tracks cumulative background position
@@ -432,50 +431,36 @@ function drawPenguin(x, y, facing) {
 
 
 /**
- * Initialize snow system
+ * Initialize snow system (no longer needed for static ground snow)
  */
 function initSnow() {
-    console.log('Initializing snow with dimensions:', canvasWidth, canvasHeight);
-    if (!canvasWidth || !canvasHeight) {
-        canvasWidth = window.innerWidth;
-        canvasHeight = window.innerHeight;
-    }
-
-    for (let i = 0; i < SNOW_COUNT; i++) {
-        snowParticles.push({
-            x: Math.random() * canvasWidth,
-            y: Math.random() * canvasHeight,
-            size: Math.random() * 3 + 1,
-            speed: Math.random() * 2 + 1,
-            wobble: Math.random() * TWO_PI
-        });
-    }
+    // Static snow is drawn directly, no initialization needed
 }
 
 /**
- * Update and draw snow
+ * Draw snow on the ground only (no falling animation)
  */
 function drawSnow(velocity) {
+    // Draw snow on the ground only
+    const trackY = canvasHeight * TRACK_Y_RATIO;
+    const groundY = trackY + 8;
+    
     noStroke();
-    fill(255, 255, 255, 180);
-
-    for (const p of snowParticles) {
-        // Move snow
-        p.y += p.speed;
-        p.x -= velocity * 2; // Move opposite to sled
-        p.wobble += 0.05;
-
-        const wobbleX = Math.sin(p.wobble) * 2;
-
-        ellipse(p.x + wobbleX, p.y, p.size);
-
-        // Wrap around
-        if (p.y > canvasHeight) {
-            p.y = -10;
-            p.x = Math.random() * canvasWidth;
-        }
-        if (p.x < -20) p.x = canvasWidth + 20;
-        if (p.x > canvasWidth + 20) p.x = -20;
+    fill(255, 255, 255, 200);
+    
+    // Static snow layer on the ground
+    for (let x = 0; x < canvasWidth; x += 15) {
+        const offset = (x * 123) % 10 - 5; // Pseudo-random offset for natural look
+        const size = 3 + ((x * 79) % 3);
+        ellipse(x + offset, groundY + 5, size, size);
+    }
+    
+    // Add some snow patches for texture
+    fill(255, 255, 255, 150);
+    for (let x = 0; x < canvasWidth; x += 25) {
+        const offset = (x * 97) % 12 - 6;
+        const size = 4 + ((x * 53) % 4);
+        ellipse(x + offset, groundY + 10, size, size);
     }
 }
 
